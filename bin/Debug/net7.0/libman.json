@@ -1,0 +1,86 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "library": "bootbox.js@6.0.0",
+      "destination": "wwwroot/lib/bootbox.js/",
+      "files": [
+        "bootbox.min.js",
+        "bootbox.js"
+      ]
+    },
+    {
+      "library": "sweetalert2@11.7.31",
+      "destination": "wwwroot/lib/sweetalert2/",
+      "files": [
+        "sweetalert2.min.js",
+        "sweetalert2.all.js",
+        "sweetalert2.all.min.js",
+        "sweetalert2.min.css"
+      ]
+    },
+    {
+      "library": "datatables@1.10.21",
+      "destination": "wwwroot/lib/datatables/",
+      "files": [
+        "js/jquery.dataTables.min.js",
+        "images/sort_asc.png",
+        "images/sort_asc_disabled.png",
+        "images/sort_both.png",
+        "images/sort_desc.png",
+        "images/sort_desc_disabled.png",
+        "css/dataTables.bootstrap4.css",
+        "css/dataTables.bootstrap4.min.css",
+        "js/dataTables.bootstrap4.js",
+        "js/dataTables.bootstrap4.min.js"
+      ]
+    },
+    {
+      "library": "datatables-buttons@2.4.2",
+      "destination": "wwwroot/lib/datatables-buttons/",
+      "files": [
+        "js/dataTables.buttons.min.js"
+      ]
+    },
+    {
+      "library": "jszip@3.10.1",
+      "destination": "wwwroot/lib/jszip/",
+      "files": [
+        "jszip.min.js"
+      ]
+    },
+    {
+      "library": "pdfmake@0.2.8",
+      "destination": "wwwroot/lib/pdfmake/",
+      "files": [
+        "pdfmake.min.js",
+        "vfs_fonts.js"
+      ]
+    },
+    {
+      "library": "datatables.net-buttons@2.4.2",
+      "destination": "wwwroot/lib/datatables.net-buttons/",
+      "files": [
+        "js/dataTables.buttons.min.js",
+        "js/buttons.print.min.js",
+        "js/buttons.html5.min.js"
+      ]
+    },
+    {
+      "library": "datatables.net-buttons-bs5@2.4.2",
+      "destination": "wwwroot/lib/datatables.net-buttons-bs5/",
+      "files": [
+        "buttons.bootstrap5.min.js",
+        "buttons.bootstrap5.min.css"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+﻿@model IEnumerable<PatientEntry>
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    ViewData["Title"] = "Home Page";
+}
+@section Styles
+{
+    <partial name="_DataTablesCss"/>
+}
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">
+            Patients
+        </h3>
+        <div class="card-toolbar">
+            <a asp-controller="PatientEntries" asp-action="Create" class="btn btn-sm btn-primary">Add</a>
+            <a class="btn btn-danger btn-sm" asp-controller="PatientEntries" asp-action="Edit ">Edit</a></>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-row-dashed table-row-gray-300 gy-7">
+                <thead>
+                    <tr class="fw-bold fs-6 text-gray-800">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>SSN</th>
+                        <th>CreatedOn</th>
+                        <th>LastUpdated</th>
+                        <th>IsDeleted</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.SSN</td>
+                            <td>@item.CreatedOn</td>
+                            <td class="js-updated-on">@item.LastUpdatedOn</td>
+                            <td>
+                                <span class="badge badge-@(item.IsDeleted ?"danger":"success") js-status">
+                                    @(item.IsDeleted ? "Deleted" : "Available")
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="dropdown">
+                                    <div class=" dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button type="button" class="btn btn-outline-info btn-sm">
+                                            @* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-7-square-fill" viewBox="0 0 16 16">
+                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Zm3.37 5.11V4.001h5.308V5.15L7.42 12H6.025l3.317-6.82v-.07H5.369Z"></path>
+                                        </svg>*@
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-square" viewBox="0 0 16 16">
+                                                <path d="M3.626 6.832A.5.5 0 0 1 4 6h8a.5.5 0 0 1 .374.832l-4 4.5a.5.5 0 0 1-.748 0l-4-4.5z" />
+                                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2z" />
+                                            </svg>
+
+                                        </button>
+                                    </div>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="btn btn-light btn-sm" asp-controller="PatientEntries" asp-action="Edit" asp-route-id="@item.Id">Edit</a></li>
+                                        <li><a class="btn btn-danger btn-sm js-toggle-status" data-id="@item.Id">Toggle</a></li>
+                                    </ul>
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@*@Html.AntiForgeryToken()*@
+<input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+@*section Scripts
+{
+    <script>
+        $(document).ready(function(){
+            $('.js-toggle-status').on('click',function(){
+                var btn =$(this);
+
+                bootbox.confirm({
+                    message: 'Are you sure that you need to toggle this item status ?',
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
+                    },
+
+                    callback: function (result) {
+                        if(result){
+                            $.post({
+                                url: '/PatientEntries/ToggleStatus/' + btn.data("id"),
+                                data: {
+                                    '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                                },
+                                success: function (lastuodatedon) {
+                                    //var status = $('.js-status');
+                                    var status = btn.parents('tr').find('.js-status');
+                                    //console.log(status.text());
+                                    var newstastus = status.text().trim() == 'Deleted' ? 'Available' : 'Deleted';
+                                    status.text(newstastus).toggleClass('badge-danger badge-success');
+                                    btn.parents('tr').find('.js-updated-on').html(lastuodatedon);
+                                }
+                            });
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Something went wrong!',
+                                //footer: '<a href="">Why do I have this issue?</a>'
+                            })
+                        }
+                        else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                //footer: '<a href="">Why do I have this issue?</a>'
+                            })
+                        }
+
+                    }
+                });
+
+
+            });
+        });
+    </script>
+}*@
+@section CustomScript
+{
+    <partial name="_Datatablesjs"/>
+    <script>
+        $(document).ready(function () {
+            $('.js-toggle-status').on('click', function () {
+                var btn = $(this);
+
+
+                $.post({
+                    url: '/PatientEntries/ToggleStatus/' + btn.data("id"),
+                    data: {
+                        '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (updated) {
+                        var status = btn.parents('tr').find('.js-status');
+                        var newStaus = status.text().trim() == "Deleted" ? "Available" : "Deleted";
+                        status.text(newStaus).toggleClass('badge-danger badge-success');
+                        btn.parents('tr').find('.js-updated-on').html(updated);
+                    }
+                });
+               
+            });
+            $('table').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+            });
+        });
+    </script>
+}

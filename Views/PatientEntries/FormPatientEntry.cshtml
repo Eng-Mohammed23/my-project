@@ -1,0 +1,45 @@
+﻿@model PatientEntryFormViewModel
+@{
+    ViewData["Title"] = "PatientEntry";
+}
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3>Add Patient</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" asp-controller="PatientEntries">
+                    @if(Model?.Id > 0)
+                    {
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" asp-for="Id" placeholder="Id">
+                            <label asp-for="Id">Id</label>
+                        </div>
+                    }
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" asp-for="Name" placeholder="Name">
+                            <label asp-for="Name">Name</label>
+                        </div>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+
+                        <div class="form-floating">
+                            <input type="text" class="form-control" asp-for="SSN" placeholder="SSN">
+                            <label asp-for="SSN">SSN</label>
+                        </div>
+                        <span asp-validation-for="SSN" class="text-danger"></span>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}
+
